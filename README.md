@@ -5,7 +5,6 @@ Finds the largest number in a PDF, two ways:
 - **Raw**: the greatest numerical value as printed.
 - **Adjusted**: the greatest value after applying the document's own scale language. A table headed `(Dollars in Millions)` means `30,704.1` is really `30,704,100,000`.
 
-Built for ConductorAI's take-home, run against `FY25_Air_Force_Working_Capital_Fund.pdf`.
 
 ## Run
 
@@ -20,22 +19,16 @@ Output:
 
 ```
 Largest raw value:                 6,000,000
-    page 93: ...costing between | $250,000 and $6,000,000) and are designed...
-
 Largest adjusted value:       30,704,100,000
-    page 13: FY 2025 | Total Revenue | T | 28,239.2 | 29,176.6 | 30,704.1
 ```
-
-Each result prints its page and the surrounding text, so the answer can be eyeballed rather than trusted blindly.
 
 ## How it works
 
-Four small functions in `main.py`:
+Three small functions in `main.py`:
 
 1. `read_pages` pulls the text from every page with PyMuPDF.
 2. `detect_scale` reads a multiplier from headers like `(Dollars in Millions)`.
 3. `find_largest` walks each page top to bottom, carries the most recent header's scale, and tracks the largest raw and adjusted values.
-4. `snippet` returns the lines around a hit so the result is verifiable.
 
 ### The one decision worth explaining
 
